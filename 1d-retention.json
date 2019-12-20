@@ -1,0 +1,72 @@
+{
+    "filter": {
+        "fields": [
+            {
+                "type": "selector",
+                "dimension": "bundle_id",
+                "value": "com.honeycomb.launcher.cn"
+            },
+            {
+                "type": "selector",
+                "dimension": "platform",
+                "value": "android"
+            },
+            {
+                "ordering": "Alphanumeric",
+                "upper": "2019-12-17",
+                "lower": "2019-11-19",
+                "type": "bound",
+                "dimension": "first_login"
+            },
+            {
+                "type": "selector",
+                "dimension": "relative_day",
+                "value": 0
+            },
+            {
+                "fields": [
+                    {
+                        "fields": [
+                            {
+                                "type": "selector",
+                                "dimension": "event_name",
+                                "value": "main_app_open"
+                            },
+                            {
+                                "type": "selector",
+                                "dimension": "topic_id",
+                                "value": ""
+                            }
+                        ],
+                        "type": "and"
+                    }
+                ],
+                "type": "or"
+            }
+        ],
+        "type": "and"
+    },
+    "queryType": "topN",
+    "intervals": [
+        "2019-11-18/2019-12-23"
+    ],
+    "dataSource": "all_event",
+    "granularity": "all",
+    "threshold": 30,
+    "metric": {
+        "ordering": "Alphanumeric",
+        "type": "dimension"
+    },
+    "aggregations": [
+        {
+            "type": "thetaSketch",
+            "fieldName": "device_id_sketch",
+            "name": "value"
+        }
+    ],
+    "dimension": {
+        "outputName": "first_login",
+        "type": "default",
+        "dimension": "first_login"
+    }
+}
